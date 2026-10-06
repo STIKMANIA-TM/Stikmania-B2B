@@ -124,12 +124,6 @@
             padding: 14px 32px; font-weight: 600; text-transform: uppercase;
             letter-spacing: 1px; border: none; cursor: pointer;
         }
-        .btn::before {
-            content: ''; position: absolute; top: 50%; left: 50%; width: 0; height: 0;
-            border-radius: 50%; background: rgba(255, 255, 255, 0.3);
-            transform: translate(-50%, -50%); transition: width 0.6s, height 0.6s;
-        }
-        .btn:hover::before { width: 300px; height: 300px; }
         .btn:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0, 255, 0, 0.3); }
         
         .btn-outline {
@@ -293,7 +287,7 @@
                 Creamos etiquetas, stickers e identificadores personalizados multifuncionales e inolvidables para tu negocio. Diseñamos experiencias que impulsan la recompra, son instagrameables y elevan la percepción de valor de tus productos.
             </p>
             <div data-aos="fade-up" data-aos-delay="400">
-                <a href="#cotizador" class="btn">Solicitar Cotización Corporativa</a>
+                <a href="#cotizador" class="btn btn-cotizar">Solicitar Cotización Corporativa</a>
                 <a href="https://wa.me/5359758756?text=Hola,%20soy%20una%20empresa%20y%20me%20interesa%20cotizar%20etiquetas%20al%20por%20mayor." target="_blank" class="btn btn-outline" style="margin-left: 15px;">Hablar con un Asesor</a>
             </div>
             <div class="hero-badges" data-aos="fade-up" data-aos-delay="600">
@@ -385,7 +379,7 @@
                     </div>
                 </div>
                 
-                <button class="btn" style="width: 100%;" onclick="calculateB2B()">Calcular Presupuesto Estimado</button>
+                <button class="btn btn-calculate" style="width: 100%;">Calcular Presupuesto Estimado</button>
                 
                 <div class="result-box" id="b2bResult">
                     <p style="color: #ccc;">Presupuesto estimado para <span id="b2bSummary"></span></p>
@@ -429,7 +423,7 @@
             </div>
             
             <div class="faq-item" data-aos="fade-up">
-                <div class="faq-question" onclick="toggleFaq(this)">
+                <div class="faq-question">
                     <span>¿Cuál es el pedido mínimo para empresas?</span>
                     <span>+</span>
                 </div>
@@ -438,8 +432,8 @@
                 </div>
             </div>
             
-            <div class="faq-item" data-aos="fade-up" data-aos-delay="100">
-                <div class="faq-question" onclick="toggleFaq(this)">
+            <div class="faq-item" data-aos="fade-up">
+                <div class="faq-question">
                     <span>¿Necesito enviar el diseño en un formato específico?</span>
                     <span>+</span>
                 </div>
@@ -448,8 +442,8 @@
                 </div>
             </div>
             
-            <div class="faq-item" data-aos="fade-up" data-aos-delay="200">
-                <div class="faq-question" onclick="toggleFaq(this)">
+            <div class="faq-item" data-aos="fade-up">
+                <div class="faq-question">
                     <span>¿Ofrecen garantía de calidad en los materiales?</span>
                     <span>+</span>
                 </div>
@@ -458,8 +452,8 @@
                 </div>
             </div>
             
-            <div class="faq-item" data-aos="fade-up" data-aos-delay="300">
-                <div class="faq-question" onclick="toggleFaq(this)">
+            <div class="faq-item" data-aos="fade-up">
+                <div class="faq-question">
                     <span>¿Cómo es el proceso de pago para empresas?</span>
                     <span>+</span>
                 </div>
@@ -483,100 +477,11 @@
         </div>
     </footer>
 
-    <script>
-        // Loading Screen
-        window.addEventListener('load', () => {
-            const loader = document.getElementById('loader');
-            setTimeout(() => {
-                loader.style.opacity = '0';
-                setTimeout(() => loader.remove(), 500);
-            }, 800);
-        });
+    <!-- AOS Animation JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <!-- Main JavaScript File (External - CSP Compatible) -->
+    <script src="app.js"></script>
 
-        // AOS Init
-        AOS.init({ duration: 800, once: true, offset: 100, easing: 'ease-out-cubic' });
-
-        // Scroll Reveal
-        function reveal() {
-            var reveals = document.querySelectorAll(".reveal");
-            reveals.forEach(element => {
-                var windowHeight = window.innerHeight;
-                var elementTop = element.getBoundingClientRect().top;
-                var elementVisible = 150;
-                if (elementTop < windowHeight - elementVisible) {
-                    element.classList.add("active");
-                }
-            });
-        }
-        window.addEventListener("scroll", reveal);
-        reveal();
-
-        // FAQ Toggle
-        function toggleFaq(element) {
-            const answer = element.nextElementSibling;
-            const sign = element.querySelector('span:last-child');
-            if (answer.classList.contains('show')) {
-                answer.classList.remove('show');
-                sign.textContent = '+';
-            } else {
-                answer.classList.add('show');
-                sign.textContent = '-';
-            }
-        }
-
-        // B2B Calculator Logic
-        function calculateB2B() {
-            const qty = parseInt(document.getElementById('b2bQty').value) || 50;
-            const w = parseFloat(document.getElementById('b2bW').value) || 5;
-            const h = parseFloat(document.getElementById('b2bH').value) || 5;
-            const material = document.getElementById('b2bMaterial').value;
-            
-            // Lógica B2B: Precio base por unidad disminuye con el volumen
-            let basePricePerUnit = 0;
-            if (material === 'vinyl') basePricePerUnit = 0.15; // $0.15 por sticker pequeño
-            else if (material === 'photo') basePricePerUnit = 0.10;
-            else if (material === 'transparent') basePricePerUnit = 0.20;
-            
-            // Factor de tamaño (si es muy grande, sube el precio)
-            const area = w * h;
-            let sizeMultiplier = 1;
-            if (area > 25) sizeMultiplier = 1.5;
-            if (area > 50) sizeMultiplier = 2.0;
-            
-            let total = qty * basePricePerUnit * sizeMultiplier;
-            
-            // Descuentos por volumen B2B
-            let discountText = "";
-            if (qty >= 500) {
-                total = total * 0.80; // 20% descuento
-                discountText = "🎉 ¡Descuento del 20% por volumen mayorista aplicado!";
-            } else if (qty >= 200) {
-                total = total * 0.90; // 10% descuento
-                discountText = "✨ Descuento del 10% por volumen aplicado.";
-            }
-            
-            const matName = material === 'vinyl' ? 'Vinilo Impermeable' : (material === 'transparent' ? 'Vinilo Transparente' : 'Papel Fotográfico');
-            
-            document.getElementById('b2bSummary').textContent = `${qty} uds de ${w}x${h} cm en ${matName}`;
-            document.getElementById('b2bPrice').textContent = `$${total.toFixed(2)} USD`;
-            document.getElementById('b2bDiscount').textContent = discountText;
-            
-            // WhatsApp Link
-            const msg = `🏢 *COTIZACIÓN B2B - STIKMANIA*\n\n• Cantidad: ${qty} unidades\n• Tamaño: ${w}x${h} cm\n• Material: ${matName}\n• Presupuesto estimado: $${total.toFixed(2)} USD\n\n✅ Me gustaría formalizar este pedido o agendar una llamada para revisar los detalles de diseño.`;
-            document.getElementById('b2bWhatsApp').href = `https://wa.me/5359758756?text=${encodeURIComponent(msg)}`;
-            
-            document.getElementById('b2bResult').classList.add('show');
-            document.getElementById('b2bResult').scrollIntoView({behavior: 'smooth', block: 'nearest'});
-        }
-
-        // Service Worker Registration (PWA)
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js')
-                    .then(registration => console.log('✅ SW registrado:', registration.scope))
-                    .catch(error => console.log('❌ Error SW:', error));
-            });
-        }
-    </script>
 </body>
 </html>
