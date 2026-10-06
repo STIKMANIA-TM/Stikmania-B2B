@@ -20,40 +20,10 @@
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="images/favicon.png">
     
-    <!-- Open Graph -->
-    <meta property="og:title" content="Etiquetas y Stickers Corporativos | STIKMANIA B2B">
-    <meta property="og:description" content="Soluciones de etiquetado profesional que elevan tu marca y generan experiencias inolvidables para tus clientes.">
-    <meta property="og:image" content="images/og-b2b.jpg">
-    <meta property="og:url" content="https://stikmania-b2b.github.io">
-    <meta property="og:type" content="website">
-    
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Pirata+One&display=swap" rel="stylesheet">
-    
-    <!-- AOS Animation CSS -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    
-    <!-- Schema Markup (B2B Focus) -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "ProfessionalService",
-        "name": "STIKMANIA B2B",
-        "image": "https://stikmania-b2b.github.io/images/logo.png",
-        "description": "Fabricación de etiquetas adhesivas, stickers e identificadores de producto personalizados para empresas y emprendimientos en Cuba.",
-        "address": {
-            "@type": "PostalAddress",
-            "addressLocality": "La Habana",
-            "addressCountry": "CU"
-        },
-        "telephone": "+5359758756",
-        "email": "stikmania795@gmail.com",
-        "url": "https://stikmania-b2b.github.io",
-        "priceRange": "$$"
-    }
-    </script>
     
     <style>
         :root {
@@ -63,7 +33,6 @@
             --black: #000000;
             --white: #FFFFFF;
             --gray: #1a1a1a;
-            --gray-light: #2a2a2a;
         }
         
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -101,11 +70,11 @@
             line-height: 1.2;
         }
         
-        a { color: inherit; text-decoration: none; transition: all 0.3s ease; }
+        a { color: inherit; text-decoration: none; }
         img { max-width: 100%; height: auto; display: block; }
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
         
-        /* === ANIMACIONES === */
+        /* Loading */
         #loader {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: #000000; display: flex; align-items: center; justify-content: center;
@@ -118,11 +87,12 @@
         }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         
+        /* Buttons */
         .btn {
-            position: relative; overflow: hidden; transition: all 0.3s ease;
             display: inline-block; background: var(--neon-green); color: var(--black);
             padding: 14px 32px; font-weight: 600; text-transform: uppercase;
             letter-spacing: 1px; border: none; cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
         .btn:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0, 255, 0, 0.3); }
         
@@ -131,8 +101,23 @@
         }
         .btn-outline:hover { background: var(--neon-green); color: var(--black); }
         
-        .card, .package-card { transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .card:hover, .package-card:hover {
+        /* Animations CSS Puras */
+        .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
+        .fade-in.active { opacity: 1; transform: translateY(0); }
+        
+        .zoom-in { opacity: 0; transform: scale(0.9); transition: opacity 0.8s ease, transform 0.8s ease; }
+        .zoom-in.active { opacity: 1; transform: scale(1); }
+        
+        .flip-up { opacity: 0; transform: rotateX(90deg); transform-origin: bottom; transition: opacity 0.8s ease, transform 0.8s ease; }
+        .flip-up.active { opacity: 1; transform: rotateX(0deg); }
+        
+        /* Cards */
+        .card {
+            background: var(--black); padding: 30px; border-radius: 8px;
+            border: 1px solid var(--dark-green);
+            transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+        }
+        .card:hover {
             transform: translateY(-8px) scale(1.02);
             box-shadow: 0 20px 40px rgba(0, 255, 0, 0.15); border-color: var(--neon-green);
         }
@@ -144,25 +129,22 @@
         }
         @keyframes shimmer { to { background-position: 200% center; } }
         
-        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
-        .reveal.active { opacity: 1; transform: translateY(0); }
-        
         /* Header */
         header {
-            background: rgba(0, 0, 0, 0.9); backdrop-filter: blur(10px);
+            background: rgba(0, 0, 0, 0.9);
             padding: 20px 0; position: fixed; width: 100%; top: 0;
             z-index: 1000; border-bottom: 1px solid var(--dark-green);
         }
         .header-content { display: flex; justify-content: space-between; align-items: center; }
         .logo { font-family: 'Pirata One', display; font-size: 1.8rem; color: var(--neon-green); }
         nav ul { display: flex; list-style: none; gap: 30px; }
-        nav a { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; position: relative; }
+        nav a { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; }
         nav a:hover { color: var(--neon-green); }
         
         /* Hero */
         .hero {
-            padding: 180px 0 100px 0; background: linear-gradient(135deg, rgba(0,0,0,0.9) 0%, rgba(0,51,0,0.8) 100%);
-            text-align: center; position: relative;
+            padding: 180px 0 100px 0;
+            text-align: center;
         }
         .hero h1 { font-size: 3.5rem; margin-bottom: 20px; }
         .hero p { font-size: 1.3rem; color: #ccc; max-width: 700px; margin: 0 auto 40px auto; font-weight: 300; }
@@ -181,21 +163,17 @@
         
         .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
         
-        .card {
-            background: var(--black); padding: 30px; border-radius: 8px;
-            border: 1px solid var(--dark-green);
-        }
         .card h3 { color: var(--neon-green); margin-bottom: 15px; font-size: 1.3rem; }
         .card p { color: #ccc; font-size: 0.95rem; margin-bottom: 15px; }
         .card ul { list-style: none; color: #ccc; }
         .card ul li { padding: 5px 0; }
         .card ul li::before { content: "✓ "; color: var(--neon-green); font-weight: bold; }
         
-        /* Calculator B2B */
+        /* Calculator */
         .calc-wrapper {
             max-width: 700px; margin: 0 auto; background: rgba(26, 26, 26, 0.95);
             border: 1px solid var(--dark-green); border-radius: 16px;
-            padding: 40px; backdrop-filter: blur(10px);
+            padding: 40px;
         }
         .calc-header { text-align: center; margin-bottom: 30px; }
         .calc-header h3 { color: var(--neon-green); font-size: 1.5rem; }
@@ -214,8 +192,7 @@
             padding: 25px; border-radius: 8px; margin-top: 30px; text-align: center;
             display: none;
         }
-        .result-box.show { display: block; animation: fadeIn 0.5s ease; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .result-box.show { display: block; }
         .result-price { font-size: 2.5rem; font-weight: 700; color: var(--neon-green); margin: 10px 0; }
         
         /* Testimonials */
@@ -261,7 +238,6 @@
 </head>
 <body>
 
-    <!-- Loading Screen -->
     <div id="loader"><div class="loader-spinner"></div></div>
 
     <header>
@@ -282,15 +258,15 @@
 
     <section class="hero">
         <div class="container">
-            <h1 data-aos="fade-down" data-aos-duration="1000">Etiquetas y Stickers Corporativos que Impulsan tu Marca</h1>
-            <p data-aos="fade-up" data-aos-delay="200">
+            <h1 class="fade-in">Etiquetas y Stickers Corporativos que Impulsan tu Marca</h1>
+            <p class="fade-in">
                 Creamos etiquetas, stickers e identificadores personalizados multifuncionales e inolvidables para tu negocio. Diseñamos experiencias que impulsan la recompra, son instagrameables y elevan la percepción de valor de tus productos.
             </p>
-            <div data-aos="fade-up" data-aos-delay="400">
+            <div class="fade-in">
                 <a href="#cotizador" class="btn btn-cotizar">Solicitar Cotización Corporativa</a>
                 <a href="https://wa.me/5359758756?text=Hola,%20soy%20una%20empresa%20y%20me%20interesa%20cotizar%20etiquetas%20al%20por%20mayor." target="_blank" class="btn btn-outline" style="margin-left: 15px;">Hablar con un Asesor</a>
             </div>
-            <div class="hero-badges" data-aos="fade-up" data-aos-delay="600">
+            <div class="hero-badges fade-in">
                 <span class="badge">✓ Vinilo Industrial Impermeable</span>
                 <span class="badge">✓ Descuentos por Volumen</span>
                 <span class="badge">✓ Entrega en 3-7 días hábiles</span>
@@ -299,15 +275,15 @@
         </div>
     </section>
 
-    <section id="soluciones" class="section section-dark reveal">
+    <section id="soluciones" class="section section-dark">
         <div class="container">
-            <div class="section-header" data-aos="fade-down">
+            <div class="section-header fade-in">
                 <h2>Soluciones de Etiquetado para tu Industria</h2>
                 <p>Desde food & beverage hasta retail y cosmética, tenemos el material y el diseño que tu producto necesita para destacar en el anaquel.</p>
             </div>
             
             <div class="grid-3">
-                <div class="card" data-aos="fade-up" data-aos-delay="0">
+                <div class="card fade-in">
                     <h3>🏷️ Etiquetas para Envases</h3>
                     <p>Adhesivos de alta resistencia al agua, grasa y cambios de temperatura. Ideales para botellas, frascos y contenedores de alimentos o cosméticos.</p>
                     <ul>
@@ -317,7 +293,7 @@
                     </ul>
                 </div>
                 
-                <div class="card" data-aos="fade-up" data-aos-delay="150">
+                <div class="card fade-in">
                     <h3>📦 Stickers para Packaging</h3>
                     <p>Sellos de seguridad, etiquetas de "Hecho a mano" o stickers decorativos para cajas y bolsas. Convierte tu empaque en una experiencia instagrameable.</p>
                     <ul>
@@ -327,7 +303,7 @@
                     </ul>
                 </div>
                 
-                <div class="card" data-aos="fade-up" data-aos-delay="300">
+                <div class="card fade-in">
                     <h3>🏢 Identificadores Corporativos</h3>
                     <p>Stickers para laptops, señalética interna, carnets o material promocional para eventos y ferias comerciales.</p>
                     <ul>
@@ -340,14 +316,14 @@
         </div>
     </section>
 
-    <section id="cotizador" class="section reveal">
+    <section id="cotizador" class="section">
         <div class="container">
-            <div class="section-header" data-aos="fade-down">
+            <div class="section-header fade-in">
                 <h2>Cotizador Corporativo</h2>
                 <p>Obtén un estimado inmediato para pedidos al por mayor. Para proyectos con necesidades específicas de diseño o troquelado, contáctanos directamente.</p>
             </div>
             
-            <div class="calc-wrapper" data-aos="flip-up" data-aos-duration="1000">
+            <div class="calc-wrapper flip-up">
                 <div class="calc-header">
                     <h3>Calcula tu Inversión</h3>
                     <p style="color: #888; font-size: 0.9rem;">Precios referenciales para volúmenes desde 50 unidades</p>
@@ -392,23 +368,23 @@
         </div>
     </section>
 
-    <section id="testimonios" class="section section-dark reveal">
+    <section id="testimonios" class="section section-dark">
         <div class="container">
-            <div class="section-header" data-aos="fade-down">
+            <div class="section-header fade-in">
                 <h2>Empresas que Confían en Nosotros</h2>
                 <p>No solo vendemos stickers, creamos activos de marca que generan resultados.</p>
             </div>
             
             <div class="grid-3">
-                <div class="testimonial" data-aos="fade-up" data-aos-delay="0">
+                <div class="testimonial fade-in">
                     <p>"Las etiquetas de STIKMANIA transformaron la presentación de nuestros jabones artesanales. Pasamos de vender 'a granel' a tener un producto premium que se vende solo en las vitrinas."</p>
                     <div class="testimonial-author">— Ash Soap Cuba</div>
                 </div>
-                <div class="testimonial" data-aos="fade-up" data-aos-delay="150">
+                <div class="testimonial fade-in">
                     <p>"Necesitábamos stickers resistentes al agua y al frío para nuestras botellas. La calidad del vinilo es industrial, llevan 6 meses en exhibición y siguen como nuevos. Excelente relación calidad-precio."</p>
                     <div class="testimonial-author">— Deli & Beverages</div>
                 </div>
-                <div class="testimonial" data-aos="fade-up" data-aos-delay="300">
+                <div class="testimonial fade-in">
                     <p>"El proceso fue súper profesional. Nos entregaron los archivos vectoriales, el diseño quedó exacto a nuestro manual de marca y los tiempos de entrega se cumplieron al pie de la letra."</p>
                     <div class="testimonial-author">— Nova Events</div>
                 </div>
@@ -416,13 +392,13 @@
         </div>
     </section>
 
-    <section id="faq" class="section reveal">
+    <section id="faq" class="section">
         <div class="container">
-            <div class="section-header" data-aos="fade-down">
+            <div class="section-header fade-in">
                 <h2>Preguntas Frecuentes (B2B)</h2>
             </div>
             
-            <div class="faq-item" data-aos="fade-up">
+            <div class="faq-item fade-in">
                 <div class="faq-question">
                     <span>¿Cuál es el pedido mínimo para empresas?</span>
                     <span>+</span>
@@ -432,7 +408,7 @@
                 </div>
             </div>
             
-            <div class="faq-item" data-aos="fade-up">
+            <div class="faq-item fade-in">
                 <div class="faq-question">
                     <span>¿Necesito enviar el diseño en un formato específico?</span>
                     <span>+</span>
@@ -442,7 +418,7 @@
                 </div>
             </div>
             
-            <div class="faq-item" data-aos="fade-up">
+            <div class="faq-item fade-in">
                 <div class="faq-question">
                     <span>¿Ofrecen garantía de calidad en los materiales?</span>
                     <span>+</span>
@@ -452,7 +428,7 @@
                 </div>
             </div>
             
-            <div class="faq-item" data-aos="fade-up">
+            <div class="faq-item fade-in">
                 <div class="faq-question">
                     <span>¿Cómo es el proceso de pago para empresas?</span>
                     <span>+</span>
@@ -477,11 +453,6 @@
         </div>
     </footer>
 
-    <!-- AOS Animation JS -->
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    
-    <!-- Main JavaScript File (External - CSP Compatible) -->
     <script src="app.js"></script>
-
 </body>
 </html>
