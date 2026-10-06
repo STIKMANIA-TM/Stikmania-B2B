@@ -1,0 +1,27 @@
+{
+  "id": "stikmania-b2b",
+  "name": "STIKMANIA B2B - Etiquetas Corporativas",
+  "short_name": "STIKMANIA B2B",
+  "description": "Fabricación de etiquetas adhesivas, stickers e identificadores de producto personalizados para empresas en Cuba.",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#00FF00",
+  "orientation": "portrait-primary",
+  "lang": "es",
+  "icons": [
+    {
+      "src": "images/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "images/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["business", "shopping", "productivity"]
+}
